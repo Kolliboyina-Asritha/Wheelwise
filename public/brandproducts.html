@@ -788,7 +788,8 @@ async function fetchFavourites(){
     const res = await fetch(`${BASE_URL}/buyer/favourites`,{
       headers:{
         'Authorization':'Bearer ' + accessToken
-      }
+      },
+      credentials: 'include'
     });
 
     const data = await res.json();
@@ -829,7 +830,8 @@ async function loadVehiclesByBrand(brandName){
         headers:{
           'Authorization':`Bearer ${accessToken}`,
           'Content-Type':'application/json'
-        }
+        },
+        credentials: 'include'
       }
     );
 
@@ -967,7 +969,8 @@ function renderVehicles(vehicles){
           method:'DELETE',
           headers:{
             'Authorization':`Bearer ${accessToken}`
-          }
+          },
+          credentials: 'include' 
         }
       );
 
@@ -998,6 +1001,7 @@ function renderVehicles(vehicles){
             'Content-Type':'application/json',
             'Authorization':`Bearer ${accessToken}`
           },
+          credentials: 'include'
           body:JSON.stringify({ vehicleId })
         }
       );
@@ -1155,6 +1159,7 @@ async function addToCart(vehicleId){
         'Content-Type':'application/json',
         'Authorization':`Bearer ${accessToken}`
       },
+      credentials: 'include'
 
       body:JSON.stringify({ vehicleId })
 
