@@ -794,7 +794,7 @@ async function createOrder(paymentMethod) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + accessToken
     },
-    credentials: 'include'
+    credentials: 'include',
    body: JSON.stringify({
   cartItems,
   buyer,
@@ -873,7 +873,7 @@ async function payWithRazorpay() {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + accessToken
               },
-              credentials: 'include'
+              credentials: 'include',
               body: JSON.stringify({
                 razorpay_order_id: razorpayOrder.id,
                 razorpay_payment_id: response.razorpay_payment_id,
