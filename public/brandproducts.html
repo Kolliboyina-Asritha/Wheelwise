@@ -1001,7 +1001,7 @@ function renderVehicles(vehicles){
             'Content-Type':'application/json',
             'Authorization':`Bearer ${accessToken}`
           },
-          credentials: 'include'
+          credentials: 'include',
           body:JSON.stringify({ vehicleId })
         }
       );
@@ -1159,7 +1159,7 @@ async function addToCart(vehicleId){
         'Content-Type':'application/json',
         'Authorization':`Bearer ${accessToken}`
       },
-      credentials: 'include'
+      credentials: 'include',
 
       body:JSON.stringify({ vehicleId })
 
