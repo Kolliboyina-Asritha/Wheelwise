@@ -1057,7 +1057,7 @@ footer{
 <script>
 
 let username = "Seller";
-const BASE_URL = "http://localhost:6006";
+const BASE_URL = "https://wheelwise2.onrender.com";
 
 let accessToken = "";
 
@@ -1332,6 +1332,7 @@ async function submitBrand(e){
           'Content-Type':'application/json',
           Authorization:`Bearer ${accessToken}`
         },
+        credentials:'include',
 
         body:JSON.stringify(body)
       }
@@ -1383,7 +1384,8 @@ async function loadBrands(btn){
       {
         headers:{
           Authorization:`Bearer ${accessToken}`
-        }
+        },
+        credentials:'include'
       }
     );
 
@@ -1467,7 +1469,7 @@ function editBrand(id,currentName,currentLogo){
       'Content-Type':'application/json',
       Authorization:`Bearer ${accessToken}`
     },
-
+   credentials:'include',
     body:JSON.stringify({
       name:newName,
       logourl:newLogo
@@ -1518,7 +1520,8 @@ async function deleteBrand(id){
 
         headers:{
           Authorization:`Bearer ${accessToken}`
-        }
+        },
+        credentials:'include'
       }
     );
 
@@ -1663,7 +1666,7 @@ async function submitVehicle(e){
           'Content-Type':'application/json',
           Authorization:`Bearer ${accessToken}`
         },
-
+       credentials:'include',
         body:JSON.stringify(body)
       }
     );
@@ -1714,7 +1717,8 @@ async function loadVehicles(btn){
       {
         headers:{
           Authorization:`Bearer ${accessToken}`
-        }
+        },
+        credentials:'include'
       }
     );
 
@@ -1824,7 +1828,7 @@ function editVehicle(vehicle){
       'Content-Type':'application/json',
       Authorization:`Bearer ${accessToken}`
     },
-
+credentials:'include',
     body:JSON.stringify({
 
       title:newTitle,
@@ -2163,7 +2167,7 @@ async function updateStatus(orderId,status){
           'Content-Type':'application/json',
           Authorization:`Bearer ${accessToken}`
         },
-
+      credentials:'include',
         body:JSON.stringify({status})
       }
     );
