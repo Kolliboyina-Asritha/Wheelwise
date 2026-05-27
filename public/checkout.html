@@ -709,7 +709,7 @@ let accessToken = '';
 let username = '';
 let discountFactor = 0;
 
-const BASE_URL = 'http://localhost:6006';
+const BASE_URL = 'https://wheelwise2.onrender.com';
 
 /* ================= JWT ================= */
 function parseJwt(token) {
@@ -794,6 +794,7 @@ async function createOrder(paymentMethod) {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + accessToken
     },
+    credentials: 'include'
    body: JSON.stringify({
   cartItems,
   buyer,
@@ -872,6 +873,7 @@ async function payWithRazorpay() {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + accessToken
               },
+              credentials: 'include'
               body: JSON.stringify({
                 razorpay_order_id: razorpayOrder.id,
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -977,7 +979,8 @@ async function loadCheckoutPage() {
   const cartRes = await fetch(`${BASE_URL}/cart`, {
     headers: {
       'Authorization': 'Bearer ' + accessToken
-    }
+    },
+    credentials: 'include'
   });
 
   const cartItems = await cartRes.json();
