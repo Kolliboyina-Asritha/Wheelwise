@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Vehicle Details</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* =========================
+BASE
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f2f4f5;
+    color:#002f34;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+/* ================= NAVBAR ================= */
+.navbar{
+  width:100%;
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+   padding:16px 40px;
+  height: 69px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
+
+.logo span{ color:#0d6efd; }
+
+.menu-icon{
+  display:none;
+  font-size:20px;
+  cursor:pointer;
+}
+.nav-links a:hover{
+  color:#0d6efd;
+}
+
+.nav-container{
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:48px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#292929;
+  font-weight:600;
+
+}
+
+.nav-icons i{
+  margin-left:10px;
+  font-size:23px;
+  color:#333;
+}
+
+
+/* =========================
+GALLERY
+========================= */
+
+.vehicle-gallery{
+    
+    width:80%;
+    background:#000;
+    padding:20px 0;
+    display:flex;
+    align-items:center;
+    border-radius:9px;
+}
+
+.gallery-wrapper{
+    width:76%;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    border-radius:8px;
+}
+
+.gallery-track{
+    display:flex;
+    transition:0.5s ease;
+}
+
+.gallery-slide{
+    min-width:100%;
+    height:400px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.gallery-slide img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.gallery-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#fff;
+    cursor:pointer;
+    z-index:10;
+}
+
+.prev-btn{ left:15px; }
+.next-btn{ right:15px; }
+
+/* =========================
+MAIN
+========================= */
+
+.details-container{
+    width:75%;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+/* LEFT */
+.left-section{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.card{
+    background:#fff;
+    border-radius:8px;
+}
+
+.card-body{
+    padding:24px;
+}
+
+/* badges */
+.badges{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.badge{
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.elite{ background:#2458b8; color:#fff; }
+.featured{ background:#ffd700; }
+
+/* title */
+.vehicle-title{
+    font-size:32px;
+    font-weight:700;
+}
+
+.vehicle-sub{
+    color:#555;
+    margin:10px 0 20px;
+}
+
+/* specs */
+.vehicle-specs{
+    display:flex;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.spec{
+    display:flex;
+    gap:8px;
+    color:#4f5b62;
+}
+
+/* section */
+.section-title{
+    padding:18px 24px;
+    border-bottom:1px solid #ddd;
+    font-size:18px;
+    font-weight:700;
+}
+
+.description{
+    padding:24px;
+    line-height:1.7;
+    color:#444;
+}
+
+/* RELATED */
+.related-card{
+    background:#fff;
+    border-radius:8px;
+    padding:28px;
+}
+
+.related-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.vehicle-card{
+    
+    border:1px solid #ddd;
+    border-radius:8px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.vehicle-card:hover{
+    transform:translateY(-4px);
+}
+
+.vehicle-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.vehicle-content{
+    padding:12px;
+}
+
+.vehicle-price{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+/* RIGHT */
+.right-section{
+    position:sticky;
+    top:20px;
+    height:fit-content;
+}
+
+.price-card{
+    background:#fff;
+    padding:24px;
+    border-radius:8px;
+}
+
+.price{
+    font-size:34px;
+    font-weight:700;
+}
+
+.cartBtn{
+    width:100%;
+    padding:14px;
+    background:#004896;
+    color:#fff;
+    border:none;
+    margin-top:20px;
+    border-radius:6px;
+    cursor:pointer;
+}
+.fav-btn{
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#fff;
+    cursor:pointer;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    color:#444;
+    transition:0.2s;
+}
+
+.fav-btn.active{
+    color:red;
+}
+/* responsive */
+footer{
+  width:100%;
+  background:linear-gradient(to right,#0052a0,#003170);
+  color:white;
+  padding:40px 20px 20px;
+  margin-top:40px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:25px;
+}
+
+.footer-box{
+  flex:1 1 220px;
+}
+
+.footer-box h4{
+  margin-bottom:15px;
+}
+
+.footer-box ul{
+  list-style:none;
+}
+
+.footer-box ul li{
+  margin-bottom:10px;
+}
+
+.footer-box ul li a{
+  color:#ddd;
+  text-decoration:none;
+}
+
+.footer-box ul li a:hover{
+  color:white;
+}
+
+.newsletter-input{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.subscribe-btn{
+  background:#ff3b3b;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.3);
+  margin-top:35px;
+  padding-top:20px;
+  text-align:center;
+}
+/* =======================
+RESPONSIVE FIX PATCH
+======================= */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .details-container {
+    width: 92%;
+  }
+
+  .vehicle-gallery {
+    width: 95%;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  /* NAVBAR FIX */
+  .menu-icon {
+    display: block;
+    font-size: 20px;
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 69px;
+    right: 10px;
+    width: 220px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: none;
+    gap: 10px;
+  }
+
+  .nav-container.active {
+    display: flex;
+    gap:16px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    padding: 6px 8px;
+    display: block;
+  }
+.logo{
+  margin-left:-15px;
+}
+  /* CONTAINER STACK */
+  .details-container {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
+
+  /* RIGHT SECTION NOT STICKY ON MOBILE */
+  .right-section {
+    position: static;
+  }
+
+  /* GALLERY */
+  .vehicle-gallery {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .gallery-wrapper {
+    width: 95%;
+  }
+
+  .gallery-slide {
+    height: 250px;
+  }
+
+  /* TITLE TEXT */
+  .vehicle-title {
+    font-size: 22px;
+  }
+
+  .vehicle-sub {
+    font-size: 14px;
+  }
+
+  /* SPECS STACK */
+  .vehicle-specs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* PRICE CARD */
+  .price {
+    font-size: 26px;
+  }
+
+  .cartBtn {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  /* RELATED GRID */
+  .related-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .vehicle-card img {
+    height: 140px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+
+  .vehicle-title {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 22px;
+  }
+
+  .gallery-slide {
+    height: 200px;
+  }
+
+  .card-body {
+    padding: 16px;
+  }
+
+  .price-card {
+    padding: 18px;
+  }
+
+  .fav-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+    .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+<nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- ================= MAIN ================= -->
+
+<!-- IMAGE SLIDER -->
+<section class="vehicle-gallery">
+
+<div class="gallery-wrapper">
+<button class="fav-btn" id="favBtn">
+  <i class="fa-regular fa-heart"></i>
+</button>
+<button class="gallery-btn prev-btn">
+<i class="fa-solid fa-angle-left"></i>
+</button>
+
+<div class="gallery-track" id="galleryTrack"></div>
+
+<button class="gallery-btn next-btn">
+<i class="fa-solid fa-angle-right"></i>
+</button>
+
+</div>
+
+</section>
+
+<!-- MAIN -->
+<div class="details-container">
+
+<!-- LEFT -->
+<div class="left-section">
+
+<!-- INFO -->
+<div class="card">
+<div class="card-body">
+
+<div class="badges">
+<div class="badge elite">ELITE</div>
+<div class="badge featured">FEATURED</div>
+</div>
+
+<h1 class="vehicle-title" id="vehicleTitle"></h1>
+
+<p class="vehicle-sub" id="vehicleSubtitle"></p>
+
+<div class="vehicle-specs">
+<div class="spec"><i class="fa-solid fa-gas-pump"></i>
+<span id="vehicleFuel"></span></div>
+
+<div class="spec"><i class="fa-solid fa-gauge-high"></i>
+<span id="vehicleMileage"></span></div>
+
+<div class="spec"><i class="fa-solid fa-code-branch"></i>
+<span id="vehicleTransmission"></span></div>
+</div>
+
+</div>
+</div>
+
+<!-- DESCRIPTION -->
+<div class="card">
+<div class="section-title">Description</div>
+<div class="description" id="vehicleDescription"></div>
+</div>
+
+<!-- RELATED -->
+<div class="related-card">
+<h2>Related Ads</h2>
+<br>
+<div class="related-grid" id="relatedGrid"></div>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="right-section">
+
+<div class="price-card">
+<h2 class="price" id="vehiclePrice"></h2>
+
+<button class="cartBtn">Add to cart</button>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+<div class="footer-container">
+
+  <div class="footer-box">
+    <h3>WheelWise</h3>
+
+    <p>
+      Experience premium second-hand vehicles with trusted quality.
+    </p>
+
+    <br>
+
+    <p>📞 +91 9876543210</p>
+    <p>📍 Hyderabad, India</p>
+    <p>✉️ support@wheelwise.com</p>
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Quick Links</h4>
+
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Testimonials</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms & Conditions</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Support</h4>
+
+    <ul>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Sell Vehicles</a></li>
+      <li><a href="#">Bookings</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Newsletter</h4>
+
+    <p>Get latest vehicle updates directly.</p>
+
+    <input
+      type="email"
+      placeholder="Your Email"
+      class="newsletter-input"
+    />
+
+    <button class="subscribe-btn">
+      Subscribe
+    </button>
+
+  </div>
+
+</div>
+
+<div class="footer-bottom">
+  © 2025 WheelWise. All Rights Reserved.
+</div>
+
+</footer>
+<script>
+  function toggleMenu(){
+  document.getElementById("navMenu").classList.toggle("active");
+    }
+
+let accessToken = '';
+let userEmail = '';
+let favouriteVehicleIds = [];
+
+const BASE_URL = 'http://localhost:6006';
+
+/* ================= JWT ================= */
+
+function parseJwt(token){
+  try{
+    return JSON.parse(atob(token.split('.')[1]));
+  }catch{
+    return null;
+  }
+}
+
+/* ================= REFRESH TOKEN ================= */
+
+async function refreshAccessToken(){
+  try{
+
+    const res = await fetch(`${BASE_URL}/refresh`,{
+      method:'POST',
+      credentials:'include'
+    });
+
+    if(res.ok){
+      const data = await res.json();
+      accessToken = data.accessToken;
+
+      const decoded = parseJwt(accessToken);
+      userEmail = decoded?.UserInfo?.email || '';
+    }
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+/* ================= QUERY PARAM ================= */
+
+function getQueryParam(name){
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+/* ================= FETCH FAVOURITES ================= */
+
+async function fetchFavourites(){
+
+  if(!accessToken) return;
+
+  try{
+
+    const res = await fetch(`${BASE_URL}/buyer/favourites`,{
+      headers:{
+        'Authorization': 'Bearer ' + accessToken
+      }
+    });
+
+    const data = await res.json();
+    favouriteVehicleIds = data.map(v => v._id);
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+/* ================= LOAD VEHICLE ================= */
+
+async function loadVehicle(){
+
+  const id = getQueryParam('id');
+  if(!id) return;
+
+  try{
+
+    const res = await fetch(`${BASE_URL}/vehicles/${id}`,{
+      headers:{
+        Authorization:`Bearer ${accessToken}`
+      }
+    });
+
+    const vehicle = await res.json();
+
+    renderVehicle(vehicle);
+    renderSlider(vehicle);
+    loadRelated(vehicle.brand?.name || vehicle.brand, vehicle._id);
+
+    const favBtn = document.getElementById('favBtn');
+    if(favBtn){
+      favBtn.setAttribute('data-id', vehicle._id);
+    }
+
+    updateFavUI(vehicle._id);
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+/* ================= RENDER ================= */
+
+function renderVehicle(vehicle){
+
+  document.getElementById('vehicleTitle').textContent =
+    `${vehicle.title} (${vehicle.year})`;
+
+  document.getElementById('vehicleSubtitle').textContent =
+    vehicle.model || 'Premium Vehicle';
+
+  document.getElementById('vehiclePrice').textContent =
+    `₹ ${Number(vehicle.price).toLocaleString('en-IN')}`;
+
+  document.getElementById('vehicleMileage').textContent =
+    `${vehicle.mileage || 0}`;
+
+  document.getElementById('vehicleTransmission').textContent =
+    vehicle.transmission || 'Automatic';
+
+  document.getElementById('vehicleDescription').innerHTML =
+    vehicle.description ||
+    `${vehicle.title} is in excellent condition.`;
+}
+
+/* ================= SLIDER ================= */
+
+function renderSlider(vehicle){
+
+  const track = document.getElementById('galleryTrack');
+  track.innerHTML = '';
+
+  const images =
+    vehicle.images?.length ? vehicle.images : [vehicle.imageUrl];
+
+  images.forEach(img=>{
+    track.innerHTML += `
+      <div class="gallery-slide">
+        <img src="${img}">
+      </div>
+    `;
+  });
+
+  initSlider();
+}
+
+function initSlider(){
+
+  const track = document.getElementById('galleryTrack');
+  const slides = document.querySelectorAll('.gallery-slide');
+
+  let index = 0;
+
+  document.querySelector('.next-btn').onclick = ()=>{
+    index = (index + 1) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  };
+
+  document.querySelector('.prev-btn').onclick = ()=>{
+    index = (index - 1 + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+  };
+}
+
+/* ================= RELATED ================= */
+
+async function loadRelated(brand, currentId){
+
+  try{
+
+    const res = await fetch(
+      `${BASE_URL}/public/by-brand-name/${encodeURIComponent(brand)}`,
+      {
+        headers:{
+          'Authorization': `Bearer ${accessToken}`
+        }
+      }
+    );
+
+    const data = await res.json();
+
+    renderRelated(data.filter(v => v._id !== currentId));
+
+  }catch(err){
+    console.error(err);
+  }
+}
+
+function renderRelated(list){
+
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = '';
+
+  list.forEach(v=>{
+    grid.innerHTML += `
+      
+      <div class="vehicle-card"
+      onclick="openVehicle('${v._id}')">
+
+        <img src="${v.imageUrl}" />
+
+        <div class="vehicle-content">
+          <div class="vehicle-price">
+            ₹ ${Number(v.price).toLocaleString('en-IN')}
+          </div>
+         
+          <div>${v.title}</div>
+        </div>
+
+      </div>
+    `;
+  });
+}
+
+/* ================= NAV ================= */
+
+function openVehicle(id){
+  window.location.href = `vehicleinfo.html?id=${id}`;
+}
+
+/* ================= FAVOURITES ================= */
+
+function updateFavUI(vehicleId){
+
+  const btn = document.getElementById('favBtn');
+  if(!btn) return;
+
+  const isLiked = favouriteVehicleIds.includes(vehicleId);
+
+  if(isLiked){
+    btn.classList.add('active');
+    btn.innerHTML = `<i class="fa-solid fa-heart"></i>`;
+  }else{
+    btn.classList.remove('active');
+    btn.innerHTML = `<i class="fa-regular fa-heart"></i>`;
+  }
+}
+
+/* ================= ADD TO CART (YOUR LOGIC) ================= */
+
+async function addToCart(vehicleId){
+
+  if(!accessToken){
+
+    alert("Please login first");
+    window.location.href = "login.html";
+    return;
+  }
+
+  try{
+
+    const res = await fetch(`${BASE_URL}/cart`,{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${accessToken}`
+      },
+
+      body:JSON.stringify({ vehicleId })
+
+    });
+
+    if(res.ok){
+
+      alert("Vehicle added to cart!");
+
+    }else{
+
+      const err = await res.json();
+      alert(err.message || "Could not add to cart");
+    }
+
+  }catch(error){
+    console.error(error);
+  }
+}
+
+/* ================= CART PAGE ================= */
+
+function goToCart(event){
+
+  event.preventDefault();
+
+  if(!accessToken){
+
+    alert("Please login first");
+    window.location.href = "login.html";
+    return;
+  }
+
+  window.location.href = "cartpage.html";
+}
+
+/* ================= EVENTS ================= */
+
+document.addEventListener('DOMContentLoaded', ()=>{
+
+  /* ❤️ FAVORITE */
+  document.getElementById('favBtn')?.addEventListener('click', async ()=>{
+
+    if(!accessToken){
+      window.location.href = "login.html";
+      return;
+    }
+
+    const vehicleId = document.getElementById('favBtn').getAttribute('data-id');
+
+    const isLiked = favouriteVehicleIds.includes(vehicleId);
+
+    try{
+
+      if(isLiked){
+
+        await fetch(`${BASE_URL}/buyer/favourites/${vehicleId}`,{
+          method:'DELETE',
+          headers:{
+            Authorization:`Bearer ${accessToken}`
+          }
+        });
+
+        favouriteVehicleIds =
+          favouriteVehicleIds.filter(id => id !== vehicleId);
+
+      }else{
+
+        await fetch(`${BASE_URL}/buyer/favourites`,{
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+            Authorization:`Bearer ${accessToken}`
+          },
+          body:JSON.stringify({ vehicleId })
+        });
+
+        favouriteVehicleIds.push(vehicleId);
+      }
+
+      updateFavUI(vehicleId);
+
+    }catch(err){
+      console.error(err);
+    }
+
+  });
+
+  /* 🛒 CART */
+  document.querySelector('.cartBtn')?.addEventListener('click', ()=>{
+
+    const vehicleId = getQueryParam('id');
+
+    addToCart(vehicleId);
+
+  });
+
+});
+
+/* ================= INIT ================= */
+
+window.addEventListener('DOMContentLoaded', async ()=>{
+
+  await refreshAccessToken();
+  await fetchFavourites();
+  await loadVehicle();
+
+});
+
+</script>
+</body>
+</html>

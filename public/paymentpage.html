@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Razorpay Test Checkout</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+ 
+<div class="checkout-box">
+
+    <h2>Vehicle Checkout</h2>
+
+    <input
+      type="text"
+      id="fullName"
+      placeholder="Full Name"
+    >
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+    >
+
+    <input
+      type="text"
+      id="phone"
+      placeholder="Phone Number"
+    >
+
+    <input
+      type="text"
+      id="address"
+      placeholder="Address"
+    >
+
+    <button
+      class="razorpay-btn"
+      onclick="payWithRazorpay()"
+    >
+      Pay With Razorpay
+    </button>
+
+    <button
+      class="cod-btn"
+      onclick="payWithCOD()"
+    >
+      Cash On Delivery
+    </button>
+
+</div>
+
+
+<script>
+
+const BASE_URL = "http://localhost:6006";
+
+let accessToken = '';
+
+
+// ================= REFRESH TOKEN =================
+
+async function refreshAccessToken() {
+
+  try {
+
+    const res = await fetch(`${BASE_URL}/refresh`, {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    const data = await res.json();
+
+    accessToken = data.accessToken;
+
+  } catch (err) {
+
+    console.error("Refresh token failed:", err);
+  }
+}
+
+
+// ================= COLLECT ORDER DATA =================
+
+function collectOrderData(paymentMethod) {
+
+  // BUYER DETAILS
+
+  const buyer = {
+
+    fullName: document.getElementById('fullName').value,
+
+    email: document.getElementById('email').value,
+
+    phone: document.getElementById('phone').value,
+
+    address: document.getElementById('address').value
+  };
+
+
+  // CART ITEMS FROM LOCALSTORAGE
+  // structure should contain:
+  // productId + quantity only
+
+  const cartItems =
+    JSON.parse(localStorage.getItem('checkoutItems')) || [];
+
+
+  return {
+
+    buyer,
+
+    items: cartItems,
+
+    paymentMethod
+  };
+}
+
+
+
+// ================= COD PAYMENT =================
+
+// ================= RAZORPAY PAYMENT =================
+
+async function payWithRazorpay() {
+
+  try {
+
+    const orderData = collectOrderData("RAZORPAY");
+
+    console.log(orderData);
+
+
+    const res = await fetch(
+      `${BASE_URL}/payments/create-order`,
+      {
+
+        method: 'POST',
+
+        headers: {
+
+          'Content-Type': 'application/json',
+
+          'Authorization': 'Bearer ' + accessToken
+        },
+
+        body: JSON.stringify(orderData)
+      }
+    );
+
+
+    const data = await res.json();
+
+    console.log(data);
+
+
+    if (!data.success) {
+
+      return alert(data.message || "Order failed");
+    }
+
+
+    const razorpayOrder = data.razorpayOrder;
+
+
+    // ================= OPEN RAZORPAY =================
+
+    const options = {
+
+      key:process.env.RAZORPAY_SECRET_ID,
+
+      amount: razorpayOrder.amount,
+
+      currency: razorpayOrder.currency,
+
+      name: "WheelWise",
+
+      description: "Vehicle Purchase Payment",
+
+      order_id: razorpayOrder.id,
+
+
+      handler: async function (response) {
+
+        try {
+
+          const verifyRes = await fetch(
+            `${BASE_URL}/payments/verify-signature`,
+            {
+
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json"
+              },
+
+              body: JSON.stringify({
+
+                razorpay_order_id:
+                  response.razorpay_order_id,
+
+                razorpay_payment_id:
+                  response.razorpay_payment_id,
+
+                razorpay_signature:
+                  response.razorpay_signature
+              })
+            }
+          );
+
+
+          const verifyData = await verifyRes.json();
+
+
+          if (verifyData.success) {
+
+            alert(
+              "✅ Payment Successful!\nPayment ID: " +
+              response.razorpay_payment_id
+            );
+
+            window.location.href =
+              "ordersuccess.html";
+
+          } else {
+
+            alert("Payment verification failed");
+          }
+
+        } catch (err) {
+
+          console.error(err);
+
+          alert("Verification failed");
+        }
+      },
+
+
+      prefill: {
+
+        name: orderData.buyer.fullName,
+
+        email: orderData.buyer.email,
+
+        contact: orderData.buyer.phone
+      },
+
+
+      notes: {
+
+        address: orderData.buyer.address
+      },
+
+
+      theme: {
+
+        color: "#0d6efd"
+      }
+    };
+
+
+    const rzp = new Razorpay(options);
+
+
+    rzp.on("payment.failed", function (response) {
+
+      console.error(response.error);
+
+      alert(
+        "❌ Payment Failed\n" +
+        response.error.description
+      );
+    });
+
+
+    rzp.open();
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Razorpay payment failed");
+  }
+}
+
+
+
+// ================= PAGE LOAD =================
+
+window.addEventListener('DOMContentLoaded', async () => {
+
+  await refreshAccessToken();
+});
+
+</script>
+</body>
+</html>

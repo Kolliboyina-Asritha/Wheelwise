@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Cart</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+/* ================= GLOBAL ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial;
+  background:#f5f5f5;
+  overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+   padding:16px 40px;
+  height: 69px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
+
+.logo span{ color:#0d6efd; }
+
+.menu-icon{
+  display:none;
+  font-size:20px;
+  cursor:pointer;
+}
+.nav-links a:hover{
+  color:#0d6efd;
+}
+
+.nav-container{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:51px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#292929;
+  font-weight:600;
+
+}
+
+.nav-icons i{
+  margin-left:10px;
+  font-size:23px;
+  color:#333;
+}
+
+/* ================= CART ================= */
+.cart-container{
+  max-width:900px;
+  margin:20px auto;
+  background:#fff;
+  padding:15px;
+  border-radius:10px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
+}
+
+.cart-item img{
+  width:120px;
+  height:80px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.cart-item-details{
+  flex:1;
+}
+
+.remove-btn{
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:10px;
+}
+
+/* ================= SUMMARY ================= */
+.cart-summary{
+  text-align:right;
+  margin-top:20px;
+}
+
+#checkout-btn{
+  background:#2ecc71;
+  border:none;
+  color:#fff;
+  padding:12px 20px;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  width:auto;
+}
+footer{
+  background:linear-gradient(to right,#0052a0,#003170);
+  color:white;
+  padding:40px 20px 20px;
+  margin-top:300px;
+}
+.footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer-box {
+      flex: 1 1 220px;
+    }
+
+    .footer-box h4 {
+      border-bottom: 2px solid white;
+      display: inline-block;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    .footer-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-box ul li {
+      margin-bottom: 8px;
+    }
+
+    .footer-box ul li a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-box ul li a:hover {
+      color: #fff;
+    }
+
+    .newsletter-input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
+    }
+
+    .subscribe-btn {
+      background: #e60023;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .subscribe-btn:hover {
+      background: #c2001d;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #ccc;
+      margin-top: 30px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-socials {
+      margin-top: 10px;
+    }
+
+    .footer-socials a {
+      margin: 0 5px;
+      display: inline-block;
+    }
+
+    .footer-socials img {
+      width: 24px;
+      height: 24px;
+    }
+
+@media (max-width: 768px) {
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    width: 200px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+    /* hidden by default */
+    display: none;
+  }
+
+  .nav-container.active {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap:24px;
+    
+  }
+
+  .logo{
+    margin-left:-15px;
+    font-size: 26px;
+  }
+  .nav-links li {
+    padding: -7px 0;
+    
+  }
+
+  .nav-icons {
+    padding-top: 10px;
+  }
+  .cart-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .cart-item img{
+    width:100%;
+    height:180px;
+  }
+
+  #checkout-btn{
+    width:100%;
+  }
+
+  .cart-summary{
+    text-align:center;
+  }
+
+  .footer-container{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+@media (max-width: 480px) {
+  .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+
+<!-- ================= CART ================= -->
+<div class="cart-container">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
+
+  <div class="cart-summary">
+    <h3>Total: ₹<span id="total-price">0</span></h3>
+    <button id="checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+ <footer>
+
+<div class="footer-container">
+
+  <div class="footer-box">
+    <h3>WheelWise</h3>
+
+    <p>
+      Experience premium second-hand vehicles with trusted quality.
+    </p>
+
+    <br>
+
+    <p>📞 +91 9876543210</p>
+    <p>📍 Hyderabad, India</p>
+    <p>✉️ support@wheelwise.com</p>
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Quick Links</h4>
+
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Testimonials</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms & Conditions</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Support</h4>
+
+    <ul>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Sell Vehicles</a></li>
+      <li><a href="#">Bookings</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Newsletter</h4>
+
+    <p>Get latest vehicle updates directly.</p>
+
+    <input
+      type="email"
+      placeholder="Your Email"
+      class="newsletter-input"
+    />
+
+    <button class="subscribe-btn">
+      Subscribe
+    </button>
+
+  </div>
+
+</div>
+
+<div class="footer-bottom">
+  © 2025 WheelWise. All Rights Reserved.
+</div>
+
+</footer>
+
+</body>
+</html>
+<script>
+  function toggleMenu(){
+  document.getElementById("navMenu").classList.toggle("active");
+}
+
+let accessToken = ''; // initially empty
+  const BASE_URL = 'http://localhost:6006';
+
+function parseJwt(token) {
+  try {
+    const base64Payload = token.split('.')[1];
+    const decodedPayload = atob(base64Payload);
+    return JSON.parse(decodedPayload);
+  } catch (e) {
+    return null;
+  }
+}
+
+async function refreshAccessToken() {
+  try {
+    const res = await fetch(`${BASE_URL}/refresh`, {
+      method: 'GET',
+      credentials: 'include'
+    });
+
+    if (!res.ok) throw new Error('Refresh failed');
+
+    const data = await res.json();
+    accessToken = data.accessToken;
+    return true;
+  } catch (err) {
+    console.error('Error refreshing token:', err);
+    return false;
+  }
+}
+
+async function isAuthenticated() {
+  if (!accessToken) return await refreshAccessToken();
+
+  const payload = parseJwt(accessToken);
+  const now = Math.floor(Date.now() / 1000);
+
+  if (!payload?.exp || payload.exp < now) {
+    return await refreshAccessToken();
+  }
+
+  return true;
+}
+
+async function fetchCartItems() {
+  try {
+    const res = await fetch(`${BASE_URL}/cart`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    if (res.status === 401 || res.status === 403) {
+      const refreshed = await refreshAccessToken();
+      if (refreshed) return fetchCartItems();
+      alert('Please login first.');
+      return window.location.href = '/login.html';
+    }
+
+    const cartItems = await res.json();
+    displayCartItems(cartItems);
+  } catch (err) {
+    console.error('Error fetching cart items:', err);
+  }
+}
+function openVehiclePage(vehicleId){
+
+  window.location.href =
+  `vehicleinfo.html?id=${vehicleId}`;
+}
+
+function displayCartItems(cartItems) {
+  const container = document.getElementById('cart-items');
+  container.innerHTML = '';
+  let total = 0;
+
+  cartItems.forEach(item => {
+    total += item.price;
+
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'cart-item';
+    itemDiv.setAttribute('data-id', item._id);
+
+    itemDiv.innerHTML = `
+      
+      <img src="${item.imageUrl}" alt="${item.title}" onclick="openVehiclePage('${item.vehicleId}')"/>
+      <div class="cart-item-details">
+        <h3>${item.title}</h3>
+        <br>
+        <p>₹${item.price}</p>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart('${item._id}')">Remove</button>
+    `;
+
+    itemDiv.addEventListener('click', (e) => {
+  if(e.target.classList.contains('remove-btn')) return;
+  openVehiclePage(item.vehicleId);
+
+});
+    // 👇 Add click handler for full card view
+    itemDiv.addEventListener('click', (e) => {
+      // prevent button click from triggering this
+      if (e.target.classList.contains('remove-btn'))  return;
+     
+    });
+
+    container.appendChild(itemDiv);
+  });
+
+  document.getElementById('total-price').textContent = total.toLocaleString();
+}
+
+async function removeFromCart(id) {
+  try {
+    await fetch(`${BASE_URL}/cart/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    fetchCartItems();
+  } catch (err) {
+    console.error('Error removing item:', err);
+  }
+}
+
+// 🆕 View full card when cart item is clicked
+
+
+document.getElementById('checkout-btn').addEventListener('click', () => {
+   window.location.href = 'checkout.html';
+});
+
+window.addEventListener('DOMContentLoaded', async () => {
+  const isAuth = await isAuthenticated();
+  if (!isAuth) {
+    alert("Please login first.");
+    window.location.href = '/login.html';
+  } else {
+    fetchCartItems();
+  }
+});
+</script>
+
+
+</body>
+</html>

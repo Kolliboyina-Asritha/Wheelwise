@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  <title>Contact Us</title>
+  <style>
+   * {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #f8f9fa;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  height: 69px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #0d6efd;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 48px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #292929;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #0d6efd;
+}
+
+.nav-icons i {
+  margin-left: 10px;
+  font-size: 23px;
+  color: #333;
+}
+
+/* ================= FORM LAYOUT ================= */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 85vh;
+  width: 85%;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+  margin: auto;
+}
+
+.left,
+.right {
+  flex: 1 1 400px;
+}
+
+.left img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.right {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.right h2 {
+  font-size: 28px;
+  color: #333;
+}
+
+.info {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ================= FOOTER ================= */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-box {
+  flex: 1 1 220px;
+}
+
+.footer-box li a{
+  color:whitesmoke;
+  text-decoration: none;
+}
+.footer-bottom {
+  border-top: 1px solid #ccc;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 20px;
+  }
+
+  .container {
+    width: 95%;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+ .menu-icon {
+  display: block;
+  font-size: 20px;
+}
+
+.nav-container {
+  position: absolute;
+  top: 69px;
+  right: 10px;
+  width: 220px;
+  background: white;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: none;
+}
+
+.nav-container.active {
+  display: flex;
+  gap:13px;
+}
+
+/* ✅ IMPORTANT FIX */
+.nav-links {
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.nav-links li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ control spacing here only */
+.nav-links a {
+  display: block;
+  padding: 6px 8px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+  .container {
+    flex-direction: column;
+    width: 95%;
+    gap:0px;
+  }
+  
+  .right {
+    margin-top:-120px;
+    padding: 20px;
+  }
+
+  .right h2 {
+    font-size: 22px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .menu-icon{
+    margin-right:22px;
+  }
+  .navbar {
+    padding: 12px 20px;
+  }
+
+  .logo {
+    font-size: 26px;
+  }
+   .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+  }
+}
+  </style>
+</head>
+<body>
+  
+<nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="left">
+      <img src="car3.webp" alt="Contact Illustration">
+    </div>
+
+    <div class="right">
+      <h2>Write a Review</h2>
+      <p>If you have any questions or inquiries, feel free to contact us directly!</p>
+
+      <div class="info">
+        <div><strong>Email:    </strong>  asrithaasritha99@gmail.com</div>
+        <div><strong>Phone:    </strong>  +91 7989178986</div>
+        <div><strong>Address:  </strong>   1234 Car Avenue, Hyderabad, Telangana - 500001</div>
+      </div>
+
+      <form onsubmit="handleSubmit(event)">
+        <input type="text" placeholder="Enter Your Name" required />
+        <input type="email" placeholder="Enter Your Email" required />
+        <select id="rating" required>
+
+          <option value="">
+            Select Rating
+          </option>
+
+          <option value="5">
+            ⭐⭐⭐⭐⭐ Excellent
+          </option>
+
+          <option value="4">
+            ⭐⭐⭐⭐ Very Good
+          </option>
+
+          <option value="3">
+            ⭐⭐⭐ Good
+          </option>
+
+          <option value="2">
+            ⭐⭐ Average
+          </option>
+
+          <option value="1">
+            ⭐ Poor
+          </option>
+
+        </select>
+        <textarea placeholder="Enter Text Message" required></textarea>
+        <button type="submit">Give Feedback</button>
+      </form>
+    </div>
+  </div>
+   <footer style="background: linear-gradient(to right, #0052a0, #003170); color: white; padding: 40px 20px 20px;">
+  <div class="footer-container">
+    <!-- Column 1: Company Info -->
+    <div class="footer-box">
+      <h3 style="margin-top: 0;">WheelWise</h3>
+      <p>"Experience the pinnacle of automotive engineering with our meticulously crafted vehicles."</p>
+      <p>📞 +2 123 564 7898</p>
+      <p>📍 25/B Millford Road, New York</p>
+      <p>✉️ info@gmail.com</p>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="footer-box">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="homepage.html#about">About Us</a></li>
+        <li><a href="#">Update News</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+       
+      </ul>
+    </div>
+
+    <!-- Column 3: Support -->
+    <div class="footer-box">
+      <h4>Support Center</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Affiliates</a></li>
+        <li><a href="#">Booking</a></li>
+        <li><a href="#">Sell Vehicles</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Newsletter -->
+    <div class="footer-box">
+      <h4>Newsletter</h4>
+      <p>"Experience the pinnacle of automotive engineering with our meticulously crafted vehicles."</p>
+      <input type="email" placeholder="Your Email" class="newsletter-input" />
+      <button class="subscribe-btn">Subscribe Now →</button>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© Copyright 2025 WheelWise. All Rights Reserved.</p>
+    <div class="footer-socials">
+
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/733/733558.png" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/733/733561.png" alt="LinkedIn"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/2111/2111710.png" alt="YouTube"></a>
+    </div>
+  </div>
+</footer>
+  <script>
+      function toggleMenu(){
+  document.getElementById("navMenu").classList.toggle("active");
+    }
+
+const BASE_URL = 'http://localhost:6006';
+
+let accessToken = '';
+
+function parseJwt(token) {
+
+  try{
+
+    const base64Payload = token.split('.')[1];
+
+    const decodedPayload = atob(base64Payload);
+
+    return JSON.parse(decodedPayload);
+
+  }catch(err){
+
+    return null;
+
+  }
+
+}
+
+async function refreshAccessToken(){
+
+  try{
+
+    const res = await fetch(
+      `${BASE_URL}/refresh`,
+      {
+        method:'GET',
+        credentials:'include'
+      }
+    );
+
+    if(!res.ok){
+
+      throw new Error('Refresh Failed');
+
+    }
+
+    const data = await res.json();
+
+    accessToken = data.accessToken;
+
+    return true;
+
+  }catch(err){
+
+    console.error(err);
+
+    return false;
+
+  }
+
+}
+
+async function isAuthenticated(){
+
+  if(!accessToken){
+
+    return await refreshAccessToken();
+
+  }
+
+  const payload = parseJwt(accessToken);
+
+  const now = Math.floor(Date.now()/1000);
+
+  if(!payload?.exp || payload.exp < now){
+
+    return await refreshAccessToken();
+
+  }
+
+  return true;
+
+}
+
+async function handleSubmit(e){
+
+  e.preventDefault();
+
+  const isAuth = await isAuthenticated();
+
+  if(!isAuth){
+
+    alert('Please login first');
+
+    return window.location.href =
+    'login.html';
+
+  }
+
+  const name =
+  document.querySelector(
+    'input[type="text"]'
+  ).value;
+
+  const email =
+  document.querySelector(
+    'input[type="email"]'
+  ).value;
+
+  const rating =
+  document.getElementById(
+    'rating'
+  ).value;
+
+  const message =
+  document.querySelector(
+    'textarea'
+  ).value;
+
+  try{
+
+    const res = await fetch(
+
+      `${BASE_URL}/feedback`,
+
+      {
+
+        method:'POST',
+
+        headers:{
+
+          'Content-Type':'application/json',
+
+          'Authorization':
+          `Bearer ${accessToken}`
+
+        },
+
+        body:JSON.stringify({
+
+          name,
+
+          email,
+
+          rating,
+
+          message
+
+        })
+
+      }
+
+    );
+
+    const data = await res.json();
+
+    if(!res.ok){
+
+      throw new Error(
+        data.message || 'Failed'
+      );
+
+    }
+
+    alert('Feedback submitted successfully');
+
+    e.target.reset();
+
+    fetchAllReviews();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(err.message);
+
+  }
+
+}
+
+async function fetchAllReviews(){
+
+  try{
+
+    const res = await fetch(
+      `${BASE_URL}/feedback`
+    );
+
+    const reviews = await res.json();
+
+    displayReviews(reviews);
+
+  }catch(err){
+
+    console.error(err);
+
+  }
+
+}
+
+function displayReviews(reviews){
+
+  const container =
+  document.getElementById(
+    'reviews-container'
+  );
+
+  container.innerHTML = '';
+
+  reviews.forEach(review=>{
+
+    const div =
+    document.createElement('div');
+
+    div.className = 'review-card';
+
+    div.innerHTML = `
+
+      <h3>
+        ${review.user.firstname}
+        ${review.user.lastname}
+      </h3>
+
+      <p class="stars">
+        ${'⭐'.repeat(review.rating)}
+      </p>
+
+      <p>
+        ${review.message}
+      </p>
+
+      <small>
+        ${new Date(
+          review.createdAt
+        ).toLocaleDateString()}
+      </small>
+
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+window.addEventListener(
+  'DOMContentLoaded',
+  ()=>{
+
+    fetchAllReviews();
+
+  }
+);
+
+</script>
+
+</body>
+</html>

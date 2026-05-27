@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Sign Up</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+  background: #f4f6f9;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  height: 69px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #0d6efd;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 48px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #292929;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #0d6efd;
+}
+
+.nav-icons i {
+  font-size: 23px;
+  color: #333;
+}
+
+/* ================= PAGE WRAPPER ================= */
+.wrapper {
+  min-height: calc(100vh - 69px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+/* ================= SIGNUP BOX ================= */
+.signup-container {
+  background: white;
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+/* ================= ROW INPUTS ================= */
+.row {
+  display: flex;
+  gap: 15px;
+}
+
+/* ================= PASSWORD ICON ================= */
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 38px;
+  cursor: pointer;
+  color: #888;
+}
+
+/* ================= CHECKBOX ================= */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.checkbox-group input {
+  margin-right: 10px;
+}
+
+.checkbox-group a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+/* ================= BUTTON ================= */
+.signup-btn {
+  width: 100%;
+  background: #1a73e8;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.signup-btn:hover {
+  background: #125dc2;
+}
+
+/* ================= GOOGLE BUTTON ================= */
+.g_id_signin {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* ================= LOGIN LINK ================= */
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #1a73e8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ================= FOOTER ================= */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-box {
+  flex: 1 1 220px;
+}
+
+.footer-box ul {
+  list-style: none;
+}
+
+.footer-box ul li {
+  margin-bottom: 8px;
+}
+
+.footer-box ul li a {
+  color: #ddd;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  border-top: 1px solid #ccc;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+}
+
+/* ================= DROPDOWN ================= */
+.dropdown,
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 180px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  display: none;
+  flex-direction: column;
+  border-radius: 5px;
+}
+
+.has-dropdown:hover .dropdown {
+  display: flex;
+}
+
+.has-submenu:hover .submenu {
+  display: flex;
+  left: 100%;
+  top: 0;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .nav-links {
+    gap: 20px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+      /* NAVBAR FIX */
+  .menu-icon {
+    display: block;
+    font-size: 20px;
+    
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 69px;
+    right: 10px;
+    width: 220px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    display: none;
+    gap: 10px;
+  }
+
+  .nav-container.active {
+    display: flex;
+    gap:19px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+  .nav-icons{
+    margin-left:16px;
+  }
+  .nav-links a {
+    padding: 6px 8px;
+    display: block;
+  }
+.logo{
+  margin-left:-15px;
+}
+  
+  .row {
+    flex-direction: column;
+  }
+
+  .signup-container {
+    padding: 25px;
+    width: 100%;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 18px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+     .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+
+}
+}
+  </style>
+</head>
+<body>
+ <nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+  <br>
+  
+<div class="wrapper">
+  <div class="signup-container">
+    <h2>Customer Sign Up</h2>
+    <form id="signupForm">
+      <!-- First & Last Name -->
+      <div class="row">
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input type="text" id="fname" name="firstname" required>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" name="lastname" required>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <!-- Mobile Number -->
+      <div class="form-group">
+        <label for="phone">Mobile Number</label>
+        <input type="tel" id="phone" name="mobileno" required>
+      </div>
+
+      <!-- Password & Confirm Password -->
+      <div class="row">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="pwd" required>
+          <i class="fas fa-eye toggle-password" onclick="togglePassword('password', this)"></i>
+        </div>
+        <div class="form-group">
+          <label for="cpassword">Confirm Password</label>
+          <input type="password" id="cpassword" required>
+          <i class="fas fa-eye toggle-password" onclick="togglePassword('cpassword', this)"></i>
+        </div>
+      </div>
+
+      <!-- Terms -->
+      <div class="checkbox-group">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+      </div>
+
+      <!-- Sign Up Button -->
+      <button type="submit" class="signup-btn">Create Account</button>
+
+      <!-- Google Sign In -->
+      <div id="g_id_onload"
+           data-client_id="458052889944-eu630co6l8l7fnasv48bdm3o4tgr94nq.apps.googleusercontent.com"
+           data-callback="handleGoogleLogin"
+           data-auto_prompt="false">
+      </div>
+
+      <div class="g_id_signin"
+           data-type="standard"
+           data-size="large"
+           data-theme="outline"
+           data-text="signup_with"
+           data-shape="rectangular"
+           data-logo_alignment="left">
+      </div>
+
+      <!-- Login Link -->
+      <div class="login-link">
+        Already have an account? <a href="login.html">Login</a>
+      </div>
+    </form>
+  </div>
+</div>
+<footer style="background: linear-gradient(to right, #0052a0, #003170); color: white; padding: 40px 20px 20px;">
+  <div class="footer-container">
+    <!-- Column 1: Company Info -->
+    <div class="footer-box">
+      <h3 style="margin-top: 0;"> WheelWise</h3>
+      <p>"Experience the pinnacle of automotive engineering with our meticulously crafted vehicles."</p>
+      <p>📞 +2 123 564 7898</p>
+      <p>📍 25/B Millford Road, New York</p>
+      <p>✉️ info@gmail.com</p>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="footer-box">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="homepage.html#about">About Us</a></li>
+        <li><a href="#">Update News</a></li>
+        <li><a href="#">Testimonials</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+       
+      </ul>
+    </div>
+
+    <!-- Column 3: Support -->
+    <div class="footer-box">
+      <h4>Support Center</h4>
+      <ul>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Affiliates</a></li>
+        <li><a href="#">Booking</a></li>
+        <li><a href="#">Sell Vehicles</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="#">Sitemap</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Newsletter -->
+    <div class="footer-box">
+      <h4>Newsletter</h4>
+      <p>"Experience the pinnacle of automotive engineering with our meticulously crafted vehicles."</p>
+      <input type="email" placeholder="Your Email" class="newsletter-input" />
+      <button class="subscribe-btn">Subscribe Now →</button>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© Copyright 2025 WheelWise. All Rights Reserved.</p>
+    <div class="footer-socials">
+
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/733/733558.png" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/733/733561.png" alt="LinkedIn"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/24/2111/2111710.png" alt="YouTube"></a>
+    </div>
+  </div>
+</footer>
+  <script>
+          function toggleMenu(){
+    document.getElementById("navMenu").classList.toggle("active");
+  }
+    const BASE_URL = 'http://localhost:6006';
+    function togglePassword(id, icon) {
+      const input = document.getElementById(id);
+      if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+      } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+      }
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const firstname = document.getElementById('fname').value;
+      const lastname = document.getElementById('lname').value;
+      const email = document.getElementById('email').value;
+      const mobileno = document.getElementById('phone').value;
+      const pwd = document.getElementById('password').value;
+      const confirmPwd = document.getElementById('cpassword').value;
+
+      if (pwd !== confirmPwd) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BASE_URL}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ firstname, lastname, email, mobileno, pwd })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert(data.success || "Registration successful!");
+          window.location.href = "login.html";
+        } else {
+          alert(data.message || "Registration failed.");
+        }
+      } catch (err) {
+        console.error("Error:", err);
+        alert("Something went wrong. Please try again later.");
+      }
+    });
+
+    async function handleGoogleLogin(response) {
+      const idToken = response.credential;
+
+      try {
+        const res = await fetch(`${BASE_URL}/auth/google`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: idToken })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          alert("Signed up successfully with Google!");
+          localStorage.setItem('accessToken', data.accessToken);
+          window.location.href = "homepage.html"; // Redirect as needed
+        } else {
+          alert(data.message || "Google signup failed.");
+        }
+      } catch (err) {
+        console.error("Google signup error:", err);
+        alert("Something went wrong during Google signup.");
+      }
+    }
+  </script>
+</body>
+</html>

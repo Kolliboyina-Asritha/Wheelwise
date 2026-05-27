@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Brand Vehicles</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f5f5;
+}
+
+/* ================= NAVBAR ================= */
+ /* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+   padding:16px 40px;
+  height: 69px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
+
+.logo span{ color:#0d6efd; }
+
+.menu-icon{
+  display:none;
+  font-size:26x;
+  cursor:pointer;
+}
+.nav-links a:hover{
+  color:#0d6efd;
+}
+
+.nav-container{
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:48px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#292929;
+  font-weight:600;
+
+}
+
+.nav-icons i{
+  margin-left:10px;
+  font-size:23px;
+  color:#333;
+}
+
+.nav-links a:hover{
+  color:#0d6efd;
+}
+
+/* ================= MAIN ================= */
+
+.main-container{
+  width:85%;
+  display:flex;
+ align-items: stretch;  
+  gap:24px;
+  padding:25px;
+   margin: 0 auto;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+  width:360px;
+  flex-shrink:0;
+}
+
+.filter-box{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.06);
+  
+  top:95px;
+  height:100vh;
+}
+
+.filter-box h3{
+  font-size:24px;
+  margin-bottom:24px;
+}
+
+.sidebar-section{
+  margin-bottom:28px;
+}
+
+.sidebar-section h4{
+  margin-bottom:12px;
+  font-size:16px;
+}
+
+.filter-select,
+.search-input{
+  width:100%;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+}
+
+.search-input:focus,
+.filter-select:focus{
+  border-color:#0d6efd;
+}
+
+#priceRange{
+  width:100%;
+  cursor:pointer;
+}
+
+.range-text{
+  margin-top:10px;
+  font-size:14px;
+  color:#555;
+}
+
+/* ================= CONTENT ================= */
+
+.content-section{
+  flex:1;
+}
+
+.top-controls{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+#brandHeading{
+  font-size:32px;
+  font-weight:bold;
+}
+
+.vehicle-count{
+  background:white;
+  padding:10px 16px;
+  border-radius:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  font-weight:600;
+}
+
+/* ================= GRID ================= */
+
+.grid-list{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:18px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+}
+
+.card-image{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:14px;
+}
+
+.vehicle-price{
+  font-size:25px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.vehicle-meta{
+  color:#666;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.vehicle-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.vehicle-location{
+  color:#666;
+  font-size:13px;
+  margin-bottom:16px;
+}
+
+.bottom-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.cart-btn{
+  border:none;
+  background:#0d6efd;
+  color:white;
+  width:100%;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.cart-btn:hover{
+  background:#0b5ed7;
+}
+.heart-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:50%;
+  background:white;
+  font-size:18px;
+  cursor:pointer;
+  z-index:10;
+  box-shadow:0 3px 10px rgba(0,0,0,0.15);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#555;
+  transition:0.3s;
+}
+
+.heart-btn.active{
+  color:red;
+}
+
+.heart-btn:hover{
+  transform:scale(1.08);
+}
+
+
+.login-warning{
+  margin-top:14px;
+  color:#d00000;
+  font-size:13px;
+  font-weight:600;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  background:linear-gradient(to right,#0052a0,#003170);
+  color:white;
+  padding:40px 20px 20px;
+  margin-top:40px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:25px;
+}
+
+.footer-box{
+  flex:1 1 220px;
+}
+
+.footer-box h4{
+  margin-bottom:15px;
+}
+
+.footer-box ul{
+  list-style:none;
+}
+
+.footer-box ul li{
+  margin-bottom:10px;
+}
+
+.footer-box ul li a{
+  color:#ddd;
+  text-decoration:none;
+}
+
+.footer-box ul li a:hover{
+  color:white;
+}
+
+.newsletter-input{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.subscribe-btn{
+  background:#ff3b3b;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.3);
+  margin-top:35px;
+  padding-top:20px;
+  text-align:center;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+  .main-container{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+  }
+
+  .filter-box{
+    position:static;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .top-controls{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+}
+@media (max-width: 768px) {
+  .main-container{
+    width:100%;
+  }
+
+  .menu-icon {
+    display: block;
+    font-size:20px;
+    
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    width: 200px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+    /* hidden by default */
+    display: none;
+  }
+
+  .nav-container.active {
+    display: flex;
+    
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap:28px;
+  }
+
+  
+  .logo{
+    margin-left:-15px;
+    font-size: 27px;
+  }
+
+  .nav-icons {
+    padding-top: 5px;
+  }
+}
+@media (max-width: 480px) {
+ 
+  .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main-container">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="filter-box">
+
+      <h3>Filters</h3>
+
+      <!-- SORT -->
+
+      <div class="sidebar-section">
+
+        <h4>Sort By</h4>
+
+        <select id="sortSelect" class="filter-select">
+
+          <option value="">Default</option>
+
+          <option value="lowToHigh">
+            Price: Low to High
+          </option>
+
+          <option value="highToLow">
+            Price: High to Low
+          </option>
+
+          <option value="newest">
+            Newest Year
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- PRICE -->
+
+      <div class="sidebar-section">
+
+        <h4>Budget</h4>
+
+        <input
+          type="range"
+          id="priceRange"
+          min="10000"
+          max="50000000"
+          step="50000"
+          value="5000000"
+        />
+
+        <div class="range-text">
+
+          Max Price:
+          <span id="priceValue">
+            ₹5,00,00,000
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- YEAR -->
+
+      <div class="sidebar-section">
+
+        <h4>Vehicle Year</h4>
+
+        <select id="yearFilter" class="filter-select">
+
+          <option value="">All Years</option>
+          <option value="2026">2026+</option>
+          <option value="2025">2025+</option>
+          <option value="2024">2024+</option>
+          <option value="2022">2022+</option>
+       
+
+        </select>
+
+      </div>
+
+      <!-- SEARCH -->
+
+      <div class="sidebar-section">
+
+        <h4>Search Vehicle</h4>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search model..."
+          class="search-input"
+        />
+
+      </div>
+      <a href=""><img class="image" src=""></a>
+
+    </div>
+
+  </aside>
+
+  <!-- RIGHT -->
+
+  <section class="content-section">
+
+    <div class="top-controls">
+
+      <h1 id="brandHeading">
+        Vehicles
+      </h1>
+
+      <div class="vehicle-count">
+        <span id="vehicleCount">0</span>
+        Vehicles Found
+      </div>
+
+    </div>
+
+    <div id="vehicleList" class="grid-list"></div>
+
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-container">
+
+  <div class="footer-box">
+    <h3>WheelWise</h3>
+
+    <p>
+      Experience premium second-hand vehicles with trusted quality.
+    </p>
+
+    <br>
+
+    <p>📞 +91 9876543210</p>
+    <p>📍 Hyderabad, India</p>
+    <p>✉️ support@wheelwise.com</p>
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Quick Links</h4>
+
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Testimonials</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms & Conditions</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Support</h4>
+
+    <ul>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Sell Vehicles</a></li>
+      <li><a href="#">Bookings</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Newsletter</h4>
+
+    <p>Get latest vehicle updates directly.</p>
+
+    <input
+      type="email"
+      placeholder="Your Email"
+      class="newsletter-input"
+    />
+
+    <button class="subscribe-btn">
+      Subscribe
+    </button>
+
+  </div>
+
+</div>
+
+<div class="footer-bottom">
+  © 2025 WheelWise. All Rights Reserved.
+</div>
+
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+
+<script>
+    function toggleMenu(){
+  document.getElementById("navMenu").classList.toggle("active");
+    }
+
+let accessToken = '';
+let userEmail = '';
+let favouriteVehicleIds = [];
+let allVehicles = [];
+
+const BASE_URL = 'http://localhost:6006';
+
+/* ================= JWT ================= */
+
+function parseJwt(token){
+
+  try{
+
+    const base64Payload = token.split('.')[1];
+    const decodedPayload = atob(base64Payload);
+
+    return JSON.parse(decodedPayload);
+
+  }catch(e){
+
+    return null;
+  }
+}
+
+/* ================= REFRESH TOKEN ================= */
+async function refreshAccessToken() {
+
+  try {
+
+    const res = await fetch(`${BASE_URL}/refresh`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    /* USER NOT LOGGED IN */
+
+    if (!res.ok) {
+
+      accessToken = '';
+      username = '';
+
+      alert('Please login first');
+
+      window.location.href = 'login.html';
+
+      return;
+    }
+
+    const data = await res.json();
+
+    /* TOKEN NOT FOUND */
+
+    if (!data.accessToken) {
+
+      accessToken = '';
+      username = '';
+
+      alert('Please login first');
+
+      window.location.href = 'login.html';
+
+      return;
+    }
+
+    accessToken = data.accessToken;
+
+    const decoded = parseJwt(accessToken);
+
+    username = decoded?.UserInfo?.email || '';
+
+    console.log('Logged in as', username);
+
+    await fetchFavourites();
+
+  } catch (err) {
+
+    console.error('Refresh failed', err);
+
+    accessToken = '';
+    username = '';
+
+    alert('Please login first');
+
+    window.location.href = 'login.html';
+  }
+}
+
+
+/* ================= GET FAVOURITES ================= */
+
+async function fetchFavourites(){
+
+  if(!accessToken) return;
+
+  try{
+
+    const res = await fetch(`${BASE_URL}/buyer/favourites`,{
+      headers:{
+        'Authorization':'Bearer ' + accessToken
+      }
+    });
+
+    const data = await res.json();
+   favouriteVehicleIds =
+    data.map(vehicle => vehicle._id);
+  }catch(err){
+
+    console.error(err);
+  }
+}
+
+/* ================= QUERY PARAM ================= */
+
+function getQueryParam(name){
+
+  const urlParams = new URLSearchParams(window.location.search);
+
+  return urlParams.get(name);
+}
+
+/* ================= OPEN VEHICLE ================= */
+
+function openVehiclePage(vehicleId){
+
+  window.location.href =
+  `vehicleinfo.html?id=${vehicleId}`;
+}
+
+/* ================= LOAD VEHICLES ================= */
+
+async function loadVehiclesByBrand(brandName){
+
+  try{
+
+    const res = await fetch(
+      `${BASE_URL}/public/by-brand-name/${encodeURIComponent(brandName)}`,
+      {
+        headers:{
+          'Authorization':`Bearer ${accessToken}`,
+          'Content-Type':'application/json'
+        }
+      }
+    );
+
+    allVehicles = await res.json();
+
+    renderVehicles(allVehicles);
+
+  }catch(err){
+
+    console.error(err);
+  }
+}
+
+/* ================= RENDER VEHICLES ================= */
+
+function renderVehicles(vehicles){
+
+  const vehicleList =
+  document.getElementById('vehicleList');
+
+  vehicleList.innerHTML = '';
+
+  document.getElementById('vehicleCount')
+  .textContent = vehicles.length;
+
+  if(vehicles.length === 0){
+
+    vehicleList.innerHTML =
+    '<h2>No Vehicles Found</h2>';
+
+    return;
+  }
+
+  vehicles.forEach(vehicle => {
+
+    const isFavourited =
+    favouriteVehicleIds.includes(vehicle._id);
+
+    const card =
+    document.createElement('div');
+
+    card.classList.add('card');
+
+    card.innerHTML = `
+
+      <button
+  class="heart-btn ${isFavourited ? 'active' : ''}"
+  data-id="${vehicle._id}"
+>
+  <i class="${isFavourited ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+</button>
+
+      <img
+        src="${vehicle.imageUrl}"
+        alt="${vehicle.title}"
+        class="card-image"
+        onclick="openVehiclePage('${vehicle._id}')"
+      />
+
+      <div class="card-content">
+
+        <div class="vehicle-price">
+          ₹ ${Number(vehicle.price).toLocaleString('en-IN')}
+        </div>
+
+        <div class="vehicle-meta">
+          ${vehicle.year || '2020'}
+          •
+          ${vehicle.mileage || '20,000'} km
+        </div>
+
+        <div class="vehicle-title">
+          ${vehicle.title}
+        </div>
+
+        <div class="vehicle-location">
+          📍 ${vehicle.location || 'Hyderabad'}
+        </div>
+
+        <div class="bottom-row">
+
+          <button
+            class="cart-btn"
+            onclick="event.stopPropagation();
+            addToCart('${vehicle._id}')"
+          >
+            Add to Cart
+          </button>
+
+        </div>
+
+        ${
+          !accessToken
+          ?
+          `<div class="login-warning">
+            Login required for cart & favourites
+          </div>`
+          :
+          ''
+        }
+
+      </div>
+    `;
+
+    const heart =
+    card.querySelector('.heart-btn');
+
+    heart.addEventListener('click', async (e) => {
+
+  e.stopPropagation();
+
+  if(!accessToken){
+
+    alert("Please login first");
+    window.location.href = "login.html";
+    return;
+  }
+
+  const vehicleId = heart.getAttribute('data-id');
+
+  const isLiked =
+  favouriteVehicleIds.includes(vehicleId);
+
+  try{
+
+    let res;
+
+    /* REMOVE FAVOURITE */
+
+    if(isLiked){
+
+      res = await fetch(
+        `${BASE_URL}/buyer/favourites/${vehicleId}`,
+        {
+          method:'DELETE',
+          headers:{
+            'Authorization':`Bearer ${accessToken}`
+          }
+        }
+      );
+
+      if(res.ok){
+
+        favouriteVehicleIds =
+        favouriteVehicleIds.filter(
+          id => id !== vehicleId
+        );
+
+        heart.classList.remove('active');
+
+        heart.innerHTML =
+        `<i class="fa-regular fa-heart"></i>`;
+      }
+
+    }
+
+    /* ADD FAVOURITE */
+
+    else{
+
+      res = await fetch(
+        `${BASE_URL}/buyer/favourites`,
+        {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json',
+            'Authorization':`Bearer ${accessToken}`
+          },
+          body:JSON.stringify({ vehicleId })
+        }
+      );
+
+      if(res.ok){
+
+        favouriteVehicleIds.push(vehicleId);
+
+        heart.classList.add('active');
+
+        heart.innerHTML =
+        `<i class="fa-solid fa-heart"></i>`;
+      }
+    }
+
+  }catch(err){
+
+    console.error(err);
+  }
+
+});
+
+    vehicleList.appendChild(card);
+
+  });
+
+}
+
+/* ================= FILTERS ================= */
+
+function applyFilters(){
+
+  let filtered = [...allVehicles];
+
+  /* SEARCH */
+
+  const search =
+  document.getElementById('searchInput')
+  .value
+  .toLowerCase();
+
+  if(search){
+
+    filtered = filtered.filter(vehicle =>
+      vehicle.title.toLowerCase().includes(search)
+    );
+  }
+
+  /* PRICE */
+
+  const maxPrice =
+  Number(document.getElementById('priceRange').value);
+
+  filtered = filtered.filter(vehicle =>
+    Number(vehicle.price) <= maxPrice
+  );
+
+  /* YEAR */
+
+  const year =
+  document.getElementById('yearFilter').value;
+
+  if(year){
+
+    filtered = filtered.filter(vehicle =>
+      Number(vehicle.year) >= Number(year)
+    );
+  }
+
+  /* SORT */
+
+  const sort =
+  document.getElementById('sortSelect').value;
+
+  if(sort === 'lowToHigh'){
+
+    filtered.sort((a,b) =>
+      a.price - b.price
+    );
+
+  }
+
+  else if(sort === 'highToLow'){
+
+    filtered.sort((a,b) =>
+      b.price - a.price
+    );
+
+  }
+
+  else if(sort === 'newest'){
+
+    filtered.sort((a,b) =>
+      b.year - a.year
+    );
+
+  }
+
+  renderVehicles(filtered);
+}
+
+/* ================= EVENTS ================= */
+
+document.addEventListener('input', (e) => {
+
+  if(
+    e.target.id === 'priceRange' ||
+    e.target.id === 'searchInput'
+  ){
+
+    document.getElementById('priceValue')
+    .textContent =
+    '₹ ' +
+    Number(
+      document.getElementById('priceRange').value
+    ).toLocaleString('en-IN');
+
+    applyFilters();
+  }
+
+});
+
+document.addEventListener('change', (e) => {
+
+  if(
+    e.target.id === 'sortSelect' ||
+    e.target.id === 'yearFilter'
+  ){
+
+    applyFilters();
+  }
+
+});
+
+/* ================= ADD TO CART ================= */
+
+async function addToCart(vehicleId){
+
+  if(!accessToken){
+
+    alert("Please login first");
+
+    window.location.href = "login.html";
+
+    return;
+  }
+
+  try{
+
+    const res = await fetch(`${BASE_URL}/cart`,{
+
+      method:'POST',
+
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${accessToken}`
+      },
+
+      body:JSON.stringify({ vehicleId })
+
+    });
+
+    if(res.ok){
+
+      alert("Vehicle added to cart!");
+
+    }else{
+
+      const err = await res.json();
+
+      alert(err.message || "Could not add to cart");
+    }
+
+  }catch(error){
+
+    console.error(error);
+  }
+}
+
+/* ================= CART PAGE ================= */
+
+function goToCart(event){
+
+  event.preventDefault();
+
+  if(!accessToken){
+
+    alert("Please login first");
+
+    window.location.href = "login.html";
+
+    return;
+  }
+
+  window.location.href = "cartpage.html";
+}
+
+/* ================= ON LOAD ================= */
+
+window.addEventListener('DOMContentLoaded', async () => {
+
+  await refreshAccessToken();
+
+  await fetchFavourites();
+  
+
+  const brandName = getQueryParam("brand");
+
+  document.getElementById("brandHeading")
+  .textContent =
+  `Vehicles under "${brandName}"`;
+
+  if(brandName){
+
+    loadVehiclesByBrand(brandName);
+  }
+
+});
+window.addEventListener('focus', async () => {
+  await fetchFavourites();
+  renderVehicles(allVehicles);
+});
+
+</script>
+
+</body>
+</html>
+
+
+

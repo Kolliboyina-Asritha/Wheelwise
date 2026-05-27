@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+ <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <title>Checkout</title>
+ 
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+    }
+ /* ================= NAVBAR ================= */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+   padding:16px 40px;
+  height: 69px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
+
+.logo span{ color:#0d6efd; }
+
+.menu-icon{
+  display:none;
+  font-size:20x;
+  cursor:pointer;
+}
+.nav-links a:hover{
+  color:#0d6efd;
+}
+
+.nav-container{
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.nav-links{
+  display:flex;
+  list-style:none;
+  gap:48px;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#292929;
+  font-weight:600;
+
+}
+
+.nav-icons i{
+  margin-left:10px;
+  font-size:23px;
+  color:#333;
+}
+
+    .add-cart-btn {
+      background-color: #1a73e8;
+      color: white;
+      padding: 7px 14px;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+      /* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .menu-icon {
+    display: block;
+  }
+
+  .nav-container {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    width: 200px;
+    background: white;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+    /* hidden by default */
+    display: none;
+  }
+
+  .nav-container.active {
+    display: flex;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-links li {
+    padding: 10px 0;
+  }
+  .logo{
+    margin-left:-15px;
+  }
+
+  .nav-icons {
+    padding-top: 10px;
+  }
+}
+
+footer{
+  background:linear-gradient(to right,#0052a0,#003170);
+  color:white;
+  padding:40px 20px 20px;
+  margin-top:40px;
+}
+
+.footer-container{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:25px;
+}
+
+.footer-box{
+  flex:1 1 220px;
+}
+
+.footer-box h4{
+  margin-bottom:15px;
+}
+
+.footer-box ul{
+  list-style:none;
+}
+
+.footer-box ul li{
+  margin-bottom:10px;
+}
+
+.footer-box ul li a{
+  color:#ddd;
+  text-decoration:none;
+}
+
+.footer-box ul li a:hover{
+  color:white;
+}
+
+.newsletter-input{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.subscribe-btn{
+  background:#ff3b3b;
+  border:none;
+  color:white;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.3);
+  margin-top:35px;
+  padding-top:20px;
+  text-align:center;
+}
+    @media screen and (max-width: 1024px) {
+  .nav-container {
+    gap: 20px;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .card img {
+    height: 120px;
+  }
+}
+    
+
+/* =========================
+   GLOBAL
+========================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#f4f7fb;
+  color:#222;
+  overflow-x:hidden;
+}
+
+/* =========================
+   CHECKOUT WRAPPER
+========================= */
+.checkout-container{
+  max-width:1200px;
+  margin:25px auto;
+  padding:24px;
+  background:#ffffff;
+  border-radius:20px;
+  box-shadow:0 6px 22px rgba(0,0,0,0.05);
+}
+
+.checkout-container h2{
+  text-align:center;
+  font-size:30px;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:24px;
+}
+
+/* =========================
+   GRID LAYOUT
+========================= */
+.checkout-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  align-items:flex-start;
+}
+
+/* =========================
+   LEFT & RIGHT PANELS
+========================= */
+.buyer-details,
+.cart-summary{
+  background:#fff;
+  border:1px solid #e7ecf3;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+
+.buyer-details h3,
+.cart-summary h3{
+  font-size:22px;
+  margin-bottom:20px;
+  color:#111827;
+}
+
+/* =========================
+   FORM
+========================= */
+.buyer-details form{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.buyer-details input{
+  width:100%;
+  height:46px;
+  padding:0 14px;
+  border:1px solid #dbe2ea;
+  border-radius:12px;
+  font-size:14px;
+  background:#f9fbfd;
+  transition:0.3s ease;
+}
+
+.buyer-details input:focus{
+  outline:none;
+  border-color:#2563eb;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(37,99,235,0.10);
+}
+.image{
+  height:300px;
+  width: 500px;
+}
+
+/* =========================
+   CART ITEMS
+========================= */
+.cart-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid #edf1f5;
+}
+
+.cart-item:last-child{
+  border-bottom:none;
+}
+
+.cart-item img{
+  width:95px;
+  height:68px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid #dce3ea;
+  background:#fff;
+}
+
+.cart-item h4{
+  font-size:18px;
+  color:#111827;
+  margin-bottom:4px;
+}
+
+.cart-item p{
+  font-size:15px;
+  font-weight:600;
+  color:#2563eb;
+  margin-bottom:8px;
+}
+
+/* =========================
+   QUANTITY
+========================= */
+label{
+  font-size:14px;
+  color:#444;
+  font-weight:500;
+}
+
+.quantity-input{
+  width:70px;
+  height:34px;
+  margin-left:6px;
+  padding:4px 8px;
+  border-radius:8px;
+  border:1px solid #ccd5df;
+  font-size:14px;
+  font-weight:600;
+  background:#f9fbfd;
+}
+
+.quantity-input:focus{
+  outline:none;
+  border-color:#2563eb;
+}
+
+/* =========================
+   SHIPPING & COUPON
+========================= */
+#shipping-method,
+#coupon-code{
+  width:100%;
+  margin-top:8px;
+  padding:11px 14px;
+  border-radius:10px;
+  border:1px solid #d7dee7;
+  background:#f9fbfd;
+  font-size:14px;
+}
+
+#shipping-method:focus,
+#coupon-code:focus{
+  outline:none;
+  border-color:#2563eb;
+  background:#fff;
+}
+
+/* =========================
+   PRICE BREAKDOWN
+========================= */
+#price-breakdown{
+  margin-top:18px;
+  padding:16px;
+  background:#f8fbff;
+  border-radius:14px;
+  border:1px solid #dce7f5;
+}
+
+#price-breakdown p{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+  font-size:14px;
+  color:#374151;
+}
+
+#price-breakdown strong{
+  display:flex;
+  justify-content:space-between;
+  font-size:22px;
+  color:#111827;
+  margin-top:12px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.checkout-btn{
+  width:100%;
+  height:46px;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s ease;
+  margin-top:14px;
+  background:linear-gradient(135deg,#2563eb,#1d4ed8);
+  color:#fff;
+  box-shadow:0 5px 14px rgba(37,99,235,0.18);
+}
+
+.checkout-btn:hover{
+  transform:translateY(-1px);
+}
+
+.checkout-btn:last-child{
+  background:linear-gradient(135deg,#10b981,#059669);
+}
+
+/* =========================
+   HORIZONTAL LINE
+========================= */
+hr{
+  border:none;
+  height:1px;
+  background:#e5eaf0;
+  margin:18px 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:950px){
+
+  .checkout-grid{
+    grid-template-columns:1fr;
+  }
+
+  .checkout-container{
+    margin:18px;
+    padding:18px;
+  }
+}
+
+@media (max-width: 768px) {
+   .menu-icon {
+  display: block;
+  font-size: 20px;
+}
+
+.nav-container {
+  position: absolute;
+  top: 69px;
+  right: 10px;
+  width: 220px;
+  background: white;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  display: none;
+}
+
+.nav-container.active {
+  display: flex;
+  gap:10px;
+}
+
+/* ✅ IMPORTANT FIX */
+.nav-links {
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  gap: 16px;
+  font-weight: 600;
+}
+
+.nav-links li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ✅ control spacing here only */
+.nav-links a {
+  display: block;
+  padding: 6px 8px;
+  line-height: 1.2;
+  font-weight: 600;
+  margin: 0;
+}
+
+.logo {
+  margin-left: -15px;
+}
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .footer-box {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  .footer-bottom {
+    font-size: 13px;
+    padding: 15px 10px;
+  }
+
+  .footer-socials a {
+    margin: 0 8px;
+  }
+
+  .subscribe-btn {
+    width: 100%;
+  }
+}
+
+@media(max-width:768px){
+
+  .cart-item{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .cart-item img{
+    width:100%;
+    height:180px;
+  }
+
+  .checkout-container h2{
+    font-size:26px;
+  }
+
+  .buyer-details h3,
+  .cart-summary h3{
+    font-size:20px;
+  }
+}
+
+@media(max-width:500px){
+
+  .checkout-container{
+    padding:14px;
+    border-radius:16px;
+  }
+
+  .buyer-details,
+  .cart-summary{
+    padding:16px;
+    border-radius:14px;
+  }
+
+  .cart-item img{
+    height:150px;
+  }
+
+  .buyer-details input,
+  .checkout-btn,
+  #shipping-method,
+  #coupon-code{
+    height:44px;
+  }
+}
+@media (max-width: 480px) {
+  
+  .footer-container {
+    display: none;
+  }
+  .footer-bottom{
+    display:none;
+  }
+  footer{
+    display:none;
+  }
+}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+
+  <div class="logo">
+    <span>Wheel</span>Wise
+  </div>
+
+  <div class="menu-icon" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <div class="nav-container" id="navMenu">
+
+    <ul class="nav-links">
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="homepage.html#about">About</a></li>
+      <li><a href="homepage.html#brands">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+      <a href="cartpage.html">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+    </div>
+
+  </div>
+
+</nav>
+  
+  <div id="mainContent"></div>
+ 
+  <footer>
+
+<div class="footer-container">
+
+  <div class="footer-box">
+    <h3>WheelWise</h3>
+
+    <p>
+      Experience premium second-hand vehicles with trusted quality.
+    </p>
+
+    <br>
+
+    <p>📞 +91 9876543210</p>
+    <p>📍 Hyderabad, India</p>
+    <p>✉️ support@wheelwise.com</p>
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Quick Links</h4>
+
+    <ul>
+      <li><a href="#">About Us</a></li>
+      <li><a href="#">Testimonials</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms & Conditions</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Support</h4>
+
+    <ul>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Sell Vehicles</a></li>
+      <li><a href="#">Bookings</a></li>
+    </ul>
+
+  </div>
+
+  <div class="footer-box">
+
+    <h4>Newsletter</h4>
+
+    <p>Get latest vehicle updates directly.</p>
+
+    <input
+      type="email"
+      placeholder="Your Email"
+      class="newsletter-input"
+    />
+
+    <button class="subscribe-btn">
+      Subscribe
+    </button>
+
+  </div>
+
+</div>
+
+<div class="footer-bottom">
+  © 2025 WheelWise. All Rights Reserved.
+</div>
+
+</footer>
+    <script>
+      function toggleMenu(){
+  document.getElementById("navMenu").classList.toggle("active");
+}
+let accessToken = '';
+let username = '';
+let discountFactor = 0;
+
+const BASE_URL = 'http://localhost:6006';
+
+/* ================= JWT ================= */
+function parseJwt(token) {
+  try {
+    const base64Payload = token.split('.')[1];
+    const decodedPayload = atob(base64Payload);
+    return JSON.parse(decodedPayload);
+  } catch (e) {
+    return null;
+  }
+}
+
+/* ================= REFRESH TOKEN ================= */
+async function refreshAccessToken() {
+  try {
+    const res = await fetch(`${BASE_URL}/refresh`, {
+      method: 'POST',
+      credentials: 'include'
+    });
+
+    if (!res.ok) {
+      alert('Please login first');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const data = await res.json();
+
+    if (!data.accessToken) {
+      alert('Please login first');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    accessToken = data.accessToken;
+
+    const decoded = parseJwt(accessToken);
+    username = decoded?.UserInfo?.email || '';
+
+    console.log("Logged in as:", username);
+
+  } catch (err) {
+    console.error(err);
+    alert('Login failed');
+    window.location.href = 'login.html';
+  }
+}
+
+/* ================= COMMON ORDER CREATOR ================= */
+async function createOrder(paymentMethod) {
+
+  const buyer = {
+    fullName: document.getElementById('fullName').value,
+    email: document.getElementById('email').value,
+    phone: document.getElementById('phone').value,
+    address: document.getElementById('address').value
+  };
+
+        const cartItems = [];
+
+      document.querySelectorAll('.cart-item').forEach(item => {
+
+        cartItems.push({
+          productId: item.getAttribute('data-product-id'),
+
+          quantity:
+            parseInt(
+              item.querySelector('.quantity-input').value
+            ) || 1
+        });
+
+      });
+
+      if (!cartItems.length) {
+        alert("Cart is empty");
+        return null;
+      }
+
+  const res = await fetch(`${BASE_URL}/payments/create-order`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
+    },
+   body: JSON.stringify({
+  cartItems,
+  buyer,
+  paymentMethod
+})
+  });
+
+  return await res.json();
+}
+
+/* ================= COD PAYMENT ================= */
+async function payWithCOD() {
+
+  try {
+
+    const data = await createOrder("COD");
+
+    if (!data?.success) {
+      return alert(data.message || "COD failed");
+    }
+
+    alert("📦 COD Order placed successfully!");
+
+    window.location.href = "ordersuccess.html";
+
+  } catch (err) {
+    console.error(err);
+    alert("COD Failed");
+  }
+}
+async function payWithRazorpay() {
+
+  console.log("🔥 Razorpay button clicked");
+
+  try {
+
+    console.log("🚀 Starting Razorpay Payment...");
+
+    const data = await createOrder("RAZORPAY");
+
+    console.log("📦 Order API Response:", data);
+
+    if (!data?.success) {
+      console.log("❌ Order creation failed:", data);
+      return alert(data.message || "Order failed");
+    }
+
+    const razorpayOrder = data.razorpayOrder;
+
+    if (!razorpayOrder) {
+      console.log("❌ razorpayOrder is undefined");
+      return alert("Razorpay order missing");
+    }
+
+    const options = {
+
+      key: "rzp_test_DvKzDxGPvFHujQ",
+      amount: razorpayOrder.amount,
+      currency: razorpayOrder.currency,
+      name: "WheelWise",
+      description: "Vehicle Purchase",
+      order_id: razorpayOrder.id,
+
+      handler: async function (response) {
+
+        console.log("💳 Payment Response from Razorpay:", response);
+
+        try {
+
+          // STILL CALLING VERIFY (for logging + signature check only)
+          await fetch(
+            `${BASE_URL}/payments/verify-signature`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + accessToken
+              },
+              body: JSON.stringify({
+                razorpay_order_id: razorpayOrder.id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature
+              })
+            }
+          );
+
+          // ❗ WE DO NOT RELY ON RESPONSE ANYMORE
+
+          console.log("⏳ Payment received. Waiting for confirmation via webhook...");
+
+          alert("Payment successful! Your order is being processed.");
+
+          // Redirect immediately
+          window.location.replace("ordersuccess.html");
+
+        } catch (err) {
+
+          console.error("❌ Verification Error:", err);
+
+          // Even if verify fails, webhook will still process payment
+          alert("Payment received. Processing may take a few seconds.");
+
+          window.location.replace("ordersuccess.html");
+        }
+      },
+
+      prefill: {
+        name: document.getElementById('fullName').value,
+        email: document.getElementById('email').value,
+        contact: document.getElementById('phone').value
+      },
+
+      theme: {
+        color: "#3399cc"
+      }
+    };
+
+    console.log("⚙️ Razorpay Options Ready:", options);
+
+    const rzp = new Razorpay(options);
+
+    console.log("🟢 Opening Razorpay popup...");
+
+    rzp.open();
+
+  } catch (err) {
+
+    console.error("❌ Razorpay Failed:", err);
+    alert("Razorpay Failed");
+  }
+}
+/* ================= COUPON ================= */
+function applyCoupon() {
+  const code = document.getElementById('coupon-code').value.trim();
+
+  if (code === 'SAVE10') {
+    alert("Coupon applied: 10% off");
+    discountFactor = -0.1;
+  } else {
+    alert("Invalid coupon");
+    discountFactor = 0;
+  }
+
+  updatePriceSummary(discountFactor);
+}
+
+/* ================= PRICE UPDATE ================= */
+function updatePriceSummary(discount = 0) {
+
+  const qtyInputs = document.querySelectorAll('.quantity-input');
+
+  let subtotal = 0;
+
+  qtyInputs.forEach(input => {
+    const price = parseFloat(input.dataset.price);
+    const quantity = parseInt(input.value) || 1;
+    subtotal += price * quantity;
+  });
+
+  const itemTax = subtotal * 0.1;
+  const shipping = parseFloat(document.getElementById('shipping-method').value);
+  const deliveryTax = shipping * 0.05;
+  const discountAmt = subtotal * Math.abs(discount);
+
+  const total = subtotal + itemTax + shipping + deliveryTax - discountAmt;
+
+  document.getElementById('price-breakdown').innerHTML = `
+    <p>Subtotal: ₹${subtotal.toFixed(2)}</p>
+    <p>Tax on Items (10%): ₹${itemTax.toFixed(2)}</p>
+    <p>Shipping: ₹${shipping.toFixed(2)}</p>
+    <p>Tax on Delivery (5%): ₹${deliveryTax.toFixed(2)}</p>
+    ${discount ? `<p style="color:green;">Discount: -₹${discountAmt.toFixed(2)}</p>` : ""}
+    <hr />
+    <strong>Total: ₹${total.toFixed(2)}</strong>
+  `;
+}
+
+/* ================= LOAD CHECKOUT ================= */
+async function loadCheckoutPage() {
+
+  const cartRes = await fetch(`${BASE_URL}/cart`, {
+    headers: {
+      'Authorization': 'Bearer ' + accessToken
+    }
+  });
+
+  const cartItems = await cartRes.json();
+
+  if (!cartItems.length) {
+    document.getElementById('mainContent').innerHTML =
+      `<div class="checkout-container"><h2>Your Cart is Empty</h2></div>`;
+    return;
+  }
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="checkout-container">
+      <h2>Checkout</h2>
+
+      <div class="checkout-grid">
+
+        <div class="buyer-details">
+          <h3>Buyer Details</h3>
+
+          <form id="buyerInfoForm">
+            <input id="fullName" placeholder="Full Name" required />
+            <input id="email" type="email" placeholder="Email" required />
+            <input id="phone" placeholder="Mobile Number" required />
+            <input id="address" placeholder="Billing Address" required />
+          </form>
+
+        </div>
+
+        <div class="cart-summary">
+          <h3>Items in Cart</h3>
+
+          ${cartItems.map(item => `
+            <div class="cart-item" data-product-id="${item.vehicleId}">
+              <img src="${item.imageUrl}" />
+              <div>
+                <h4>${item.title}</h4>
+                <p>₹${item.price}</p>
+                <label>
+                  Qty:
+                  <input type="number"
+                    class="quantity-input"
+                    data-price="${item.price}"
+                    value="1"
+                    min="1"
+                  />
+                </label>
+              </div>
+            </div>
+          `).join('')}
+
+          <hr />
+
+          <label>
+            Shipping Method:
+            <select id="shipping-method">
+              <option value="0">Free Shipping - ₹0</option>
+              <option value="50">Standard - ₹50</option>
+              <option value="100">Express - ₹100</option>
+            </select>
+          </label>
+
+          <label>
+            Coupon Code:
+            <input type="text" id="coupon-code" />
+            <button onclick="applyCoupon()" class="checkout-btn">Apply</button>
+          </label>
+
+          <hr />
+
+          <div id="price-breakdown"></div>
+
+          <button class="checkout-btn" onclick="payWithCOD()">Cash on Delivery</button>
+          <button class="checkout-btn" onclick="payWithRazorpay()">Pay via Razorpay</button>
+
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.querySelectorAll('.quantity-input, #shipping-method')
+    .forEach(el => el.addEventListener('input', () => updatePriceSummary(discountFactor)));
+
+  updatePriceSummary(discountFactor);
+}
+
+/* ================= INIT ================= */
+window.addEventListener('DOMContentLoaded', async () => {
+  await refreshAccessToken();
+if (!accessToken) {
+  console.error("❌ No access token found");
+  alert("Session expired. Please login again.");
+  window.location.href = "login.html";
+  return;
+}
+  await loadCheckoutPage();
+});
+</script>
+</body>
+</html>
