@@ -1038,7 +1038,7 @@ let username = '';
 let editMode = false;
 let existingData = null;
 let favouriteVehicleIds = [];
- const BASE_URL = 'http://localhost:6006';
+ const BASE_URL = 'https://wheelwise2.onrender.com';
 function parseJwt(token) {
   try {
     const base64Payload = token.split('.')[1];
@@ -1114,7 +1114,8 @@ async function refreshAccessToken() {
 async function fetchFavourites() {
   try {
     const res = await fetch(`${BASE_URL}/buyer/favourites`, {
-      headers: { 'Authorization': 'Bearer ' + accessToken }
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      credentials: 'include'
     });
     const data = await res.json();
     favouriteVehicleIds = data.map(v => v._id);
@@ -1162,7 +1163,8 @@ function loadFavorites() {
   fetch(`${BASE_URL}/buyer/favourites`, {
     headers: {
       'Authorization': 'Bearer ' + accessToken
-    }
+    },
+    credentials: 'include'
   })
 
   .then(res => res.json())
@@ -1275,7 +1277,8 @@ function loadFavorites() {
               headers: {
                 'Authorization':
                 `Bearer ${accessToken}`
-              }
+              },
+              credentials: 'include'
             }
           );
 
@@ -1336,6 +1339,7 @@ async function addToCart(vehicleId) {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
+      credentials: 'include',
       body: JSON.stringify({ vehicleId })
     });
 
@@ -1351,7 +1355,8 @@ async function addToCart(vehicleId) {
 }
 function loadForm() {
   fetch(`${BASE_URL}/buyer/details`, {
-    headers: { 'Authorization': 'Bearer ' + accessToken }
+    headers: { 'Authorization': 'Bearer ' + accessToken },
+    credentials: 'include'
   })
     .then(res => res.json())
     .then(data => {
@@ -1448,6 +1453,7 @@ function renderForm(data) {
           'Content-Type': 'application/json',
           'Authorization': 'Bearer ' + accessToken
         },
+        credentials: 'include',
         body: JSON.stringify(body)
       })
         .then(res => res.json())
@@ -1472,7 +1478,8 @@ async function loadPurchasedOrders() {
     const res = await fetch(`${BASE_URL}/orders/my-orders`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
-      }
+      },
+      credentials: 'include'
     });
 
     const orders = await res.json();
@@ -1640,7 +1647,8 @@ async function removeOrder(orderId, cardElement) {
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     const data = await res.json();
@@ -1691,6 +1699,7 @@ async function cancelOrder(orderId) {
           'Authorization': `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
 
         body: JSON.stringify({ reason })
       }
