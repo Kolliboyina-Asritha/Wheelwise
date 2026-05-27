@@ -503,7 +503,7 @@ input[type="tel"] {
           function toggleMenu(){
     document.getElementById("navMenu").classList.toggle("active");
   }
-    const BASE_URL = 'http://localhost:6006';
+    const BASE_URL = 'https://wheelwise2.onrender.com';
     function togglePassword(id, icon) {
       const input = document.getElementById(id);
       if (input.type === "password") {
@@ -534,6 +534,7 @@ input[type="tel"] {
         const res = await fetch(`${BASE_URL}/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials:'include',
           body: JSON.stringify({ firstname, lastname, email, mobileno, pwd })
         });
 
@@ -558,6 +559,7 @@ input[type="tel"] {
         const res = await fetch(`${BASE_URL}/auth/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          credentials:'include',
           body: JSON.stringify({ token: idToken })
         });
 
