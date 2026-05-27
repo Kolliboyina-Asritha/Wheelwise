@@ -1558,7 +1558,7 @@ MOBILE RESPONSIVE
   function toggleMenu(){
   document.querySelector(".nav-container").classList.toggle("active");
 }
-const BASE_URL = 'http://localhost:6006';
+const BASE_URL = 'https://wheelwise2.onrender.com';
   // Pages dropdown toggle
     function showNotification() {
     const notify = document.getElementById('notify');
@@ -1836,7 +1836,8 @@ const brandList = document.getElementById('homeBrandList');
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
-      }
+      },
+      credentials: 'include'
     });
 
     if (!res.ok) {
